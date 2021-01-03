@@ -18,12 +18,9 @@ public class ShooterSubsystem extends Subsystem {
 
   public static WPI_TalonSRX shooterMotorController = new WPI_TalonSRX(RobotMap.shooterWheelMotorControllerID);
   public static WPI_TalonSRX panMotorController = new WPI_TalonSRX(RobotMap.shooterPanMotorControllerID);
-<<<<<<< HEAD
-  public WPI_TalonSRX tiltMotorController = new WPI_TalonSRX(RobotMap.ShooterTiltMotorControllerID);
-=======
   public static WPI_TalonSRX tiltMotorController = new WPI_TalonSRX(RobotMap.ShooterTiltMotorControllerID);
->>>>>>> fangsActivated is no longer static.
   public Boolean fangsActivated = false;
+  public double tiltValue = 0.0;
   // double shooterSpeed = 0.5;
 
   NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
@@ -318,11 +315,15 @@ public void zeroTiltPot() {
     }
   } 
 
-  public void testPanTurret(){
-    //System.out.println("Testing PAN");
-    double maxSpeed = 0.25; 
-    double output = (Robot.oi.driveStick.getZ()*1) * maxSpeed;
-    panMotorController.set(ControlMode.PercentOutput, output);
+  public void manualAimTiltFangs(){
+    tiltValue = ((Robot.oi.driveStick.getThrottle()*-1) + 1) / 2;
+    double output = tiltValue*RobotMap.shooterTiltMotorTicksPerRotation;
+
+    if (fangsActivated==true)
+    {
+    tiltMotorController.set(ControlMode.MotionMagic, output);
+    }
+    //Use a constant for the activated position of the encoders and then add to it.  
   }
 
   public void testTiltFangs(){
