@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 import frc.robot.OI;
 
 public class ShooterVisionCommand extends Command {
@@ -19,7 +20,7 @@ public class ShooterVisionCommand extends Command {
   }
   //public String loc = "";
   public static int counter = 0;
-  public int counterNum = 7;
+  public int counterNum = 4;
   //public boolean bounds = false;
   public String side = "";
 
@@ -40,13 +41,6 @@ public class ShooterVisionCommand extends Command {
   @Override
   protected void execute() {
     Robot.shooterSubsystem.centerShooterPan();
-    side = Robot.shooterSubsystem.whichSide();
-    if (side == ("Center")) {
-      counter +=1;
-    } else {
-      counter = 0;
-    }
-    //System.out.println(side);
 
 /*
 if (Robot.oi.turnStick.getButton(6))
@@ -103,9 +97,10 @@ else {Robot.shooterSubsystem.shoot(0);}
   @Override
   protected boolean isFinished() {
     boolean state = false;
-    if (counter >= counterNum) {
+    if (RobotMap.allowableCenter >= counterNum) {
       System.out.println("FINISHED TRACKING");
       state = true;
+      RobotMap.allowableCenter = 0;
     }
     return state;
   }

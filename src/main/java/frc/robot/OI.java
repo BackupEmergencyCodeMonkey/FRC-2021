@@ -19,13 +19,11 @@ import frc.robot.commands.*;
  */
 public class OI {
  
-  public static int driveStickPort = 0;
-  public static int copilotPort = 1;
-  public static int turnStickPort = 2;
+  
 
-  public Joystick driveStick = new Joystick(driveStickPort);
-  public Joystick turnStick = new Joystick(turnStickPort);
-  public Joystick buttonBox = new Joystick(copilotPort);
+  public static Joystick driveStick = new Joystick(RobotMap.driveStickPort);
+  public static Joystick turnStick = new Joystick(RobotMap.turnStickPort);
+  public static Joystick buttonBox = new Joystick(RobotMap.copilotPort);
 
   //driveStick
   Button runIntake = new JoystickButton(driveStick, 1);

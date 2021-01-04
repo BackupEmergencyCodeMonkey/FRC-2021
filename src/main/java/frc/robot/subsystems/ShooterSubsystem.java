@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.Robot;
+import frc.robot.OI;
 import frc.robot.commands.ShooterPanManuallyCommand;
 import frc.robot.commands.ShooterStandbyCommand;
 
@@ -125,7 +126,9 @@ public class ShooterSubsystem extends Subsystem {
   public int getPanEncoder() {
     return panMotorController.getSelectedSensorPosition();
   }
-
+  public void testPanTurret() {
+    panMotorController.set(ControlMode.Position, OI.driveStick.getThrottle());
+  }
   // public int getTiltEncoder() {
   // return tiltMotorController.getSelectedSensorPosition();
   // }
@@ -264,6 +267,7 @@ public class ShooterSubsystem extends Subsystem {
         break;
 
       case "Center": {
+        RobotMap.allowableCenter++;
         panStandby();
         //panMotorController.set(ControlMode.PercentOutput, 0);
       }
